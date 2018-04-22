@@ -2,7 +2,7 @@
 * @Author: wangjing
 * @Date:   2018-04-10 10:04:28
 * @Last Modified by:   wangjing
-* @Last Modified time: 2018-04-10 16:26:34
+* @Last Modified time: 2018-04-10 17:01:14
 */
 // 集合：无序且不允许重复的顺序数据结构。
 // 还有交集、并集、差集等基本操作。
@@ -66,7 +66,7 @@ function Set() {
 	this.values = function() {
 		let values = [];
 		for(let i=0, keys=Object.keys(items); i<keys.length; i++) {
-			values.push(items[keys[i]]);
+			values.push(items[keys[i]);
 		}
 		return values;
 	};
@@ -144,19 +144,23 @@ function Set() {
 }
 
 let set = new Set();
-set.add(1);
+set.add(3);
+set.add(4);
+set.add(5);
+set.add(6);
+set.add(7);
 console.log(set.values());
 console.log(set.has(1));
 console.log(set.size());
-set.add(2);
+set.add(7);
 console.log(set.values());
-console.log(set.has(2));
+console.log(set.has(3));
 console.log(set.size());
 
-set.remove(1);
+set.remove(3);
 console.log(set.values());
 
-set.remove(2);
+set.remove(5);
 console.log(set.values());
 
 
