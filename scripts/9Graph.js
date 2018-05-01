@@ -2,7 +2,7 @@
 * @Author: wangjing
 * @Date:   2018-04-22 17:25:14
 * @Last Modified by:   wangjing
-* @Last Modified time: 2018-04-22 22:06:33
+* @Last Modified time: 2018-04-23 21:11:33
 */
 // 图由顶点和边组成。
 // 顶点的度：相邻顶点的数量。
@@ -180,6 +180,41 @@ function Graph() {
 		f[u] = ++time;
 		console.log('explored ' + u);
 	};
+
+	// 最短路径算法
+	// Dijkstra算法：计算从单个源到其他源的最短路径的贪心算法。
+	this.dijkstra = function(src) {
+		var dist = [], visited = [], length = this.graph.length;
+
+		for (var i=0; i<length; i++) {
+			dist[i] = INF;
+			visited[i] =false;
+		}
+		dist[src] = 0;
+
+		for(var i=0; i<length-1; i++) {
+			var u = minDistance(dist, visited);
+			visited[u] = true;
+
+			for (var v=0; v<length; v++) {
+				if (!visited[v]  &&  dist[u]!=INF  &&  this.graph[u][v]!=0  &&  dist[u]+this.graph[u][v]<dist[v]) {
+					dist[v] = dist[u] + this.graph[u][v];
+				}
+			}
+		}
+		return dist;
+	};
+
+	var minDistance = function(dist, visited) {
+		var min = INF, minIndex = -1;
+		for (var v=0; v<dist.length; v++) {
+			if (visited[v] == false  &&  dist[v] <= min) {
+				min = dist[v];
+				minIndex = v;
+			}
+		}
+		return minIndex;
+	};
 };
 
 function Dictionary() {
@@ -311,18 +346,27 @@ function Queue() {
 // graph.DFS(printNode);
 
 
-// 深度优先搜索应用-拓扑排序
-// 对于有向无环图(DAG),编排一些任务或步骤的执行顺序
-graph = new Graph();
-myVertivces = ['A','B','C','D','E','F'];
-for(i=0; i<myVertivces.length; i++) {
-	graph.addVertex(myVertivces[i]);
-}
+// // 深度优先搜索应用-拓扑排序
+// // 对于有向无环图(DAG),编排一些任务或步骤的执行顺序
+// graph = new Graph();
+// myVertivces = ['A','B','C','D','E','F'];
+// for(i=0; i<myVertivces.length; i++) {
+// 	graph.addVertex(myVertivces[i]);
+// }
 
-graph.addEdge('A', 'C');
-graph.addEdge('A', 'D');
-graph.addEdge('B', 'D');
-graph.addEdge('B', 'E');
-graph.addEdge('C', 'F');
-graph.addEdge('F', 'E');
-graph.DFS();
+// graph.addEdge('A', 'C');
+// graph.addEdge('A', 'D');
+// graph.addEdge('B', 'D');
+// graph.addEdge('B', 'E');
+// graph.addEdge('C', 'F');
+// graph.addEdge('F', 'E');
+// graph.DFS();
+
+
+var graph = [[0,2,4,0,0,0],[0,0,2,4,2,0],[0,0,0,0,3,0],[0,0,0,0,0,2],[0,0,0,3,0,2],[0,0,0,0,0,0]];
+ // console.log(graph.length);
+var dist = dijkstra(graph[0]);
+
+for (i = 0; i < dist.length; i++){
+    console.log(i + '\t\t' + dist[i]);
+}
